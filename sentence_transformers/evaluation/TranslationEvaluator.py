@@ -103,13 +103,13 @@ class TranslationEvaluator(SentenceEvaluator):
         
         logger.info('Evaluating translation similarity')
         
-        embeddings1 = embeddings1.cpu()
-        embeddings2 = embeddings2.cpu()
+        embeddings11 = torch.tensor(embeddings1, device='cpu')
+        embeddings22 = torch.tensor(embeddings2, device='cpu')
         
-        cosine_scores = 1 - (paired_cosine_distances(embeddings1, embeddings2))
-        manhattan_distances = -paired_manhattan_distances(embeddings1, embeddings2)
-        euclidean_distances = -paired_euclidean_distances(embeddings1, embeddings2)
-        dot_products = [np.dot(emb1, emb2) for emb1, emb2 in zip(embeddings1, embeddings2)]
+        cosine_scores = 1 - (paired_cosine_distances(embeddings11, embeddings22))
+        manhattan_distances = -paired_manhattan_distances(embeddings11, embeddings22)
+        euclidean_distances = -paired_euclidean_distances(embeddings11, embeddings22)
+        dot_products = [np.dot(emb1, emb2) for emb1, emb2 in zip(embeddings11, embeddings22)]
         
         
         logger.info("Cosine-Similarity :{:.4f}".format(cosine_scores))
