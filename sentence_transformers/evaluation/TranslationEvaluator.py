@@ -61,11 +61,11 @@ class TranslationEvaluator(SentenceEvaluator):
 
         logger.info("Evaluating translation matching Accuracy on "+self.name+" dataset"+out_txt)
 
-        embeddings1 = torch.stack(model.encode(self.source_sentences, show_progress_bar=self.show_progress_bar, batch_size=self.batch_size, convert_to_numpy=False))
-        embeddings2 = torch.stack(model.encode(self.target_sentences, show_progress_bar=self.show_progress_bar, batch_size=self.batch_size, convert_to_numpy=False))
+        embeddings1 = model.encode(self.source_sentences, show_progress_bar=self.show_progress_bar, batch_size=self.batch_size, convert_to_numpy=False)
+        embeddings2 = model.encode(self.target_sentences, show_progress_bar=self.show_progress_bar, batch_size=self.batch_size, convert_to_numpy=False)
 
 
-        cos_sims = pytorch_cos_sim(embeddings1, embeddings2).detach().cpu().numpy()
+        cos_sims = pytorch_cos_sim(torch.stack(embeddings1), torch.stack(embeddings2)).detach().cpu().numpy()
 
         correct_src2trg = 0
         correct_trg2src = 0
@@ -103,7 +103,16 @@ class TranslationEvaluator(SentenceEvaluator):
         
         logger.info('Evaluating translation similarity')
         
+        cosine_scores = 1 - (paired_cosine_distances(embeddings1, embeddings2))
+        manhattan_distances = -paired_manhattan_distances(embeddings1, embeddings2)
+        euclidean_distances = -paired_euclidean_distances(embeddings1, embeddings2)
+        dot_products = [np.dot(emb1, emb2) for emb1, emb2 in zip(embeddings1, embeddings2)]
         
+        
+        logger.info("Cosine-Similarity :{:.4f}".format(cosine_scores))
+        logger.info("Manhattan-Distance:{:.4f}".format(manhattan_distances))
+        logger.info("Euclidean-Distance:{:.4f}".format(euclidean_distances))
+        logger.info("Dot-Product-Similarity:{:.4f}".format(dot_products))
 
         if output_path is not None and self.write_csv:
             csv_path = os.path.join(output_path, self.csv_file)
