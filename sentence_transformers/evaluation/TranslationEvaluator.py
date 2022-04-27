@@ -7,6 +7,8 @@ import numpy as np
 import scipy.spatial
 from typing import List
 import torch
+from sklearn.metrics.pairwise import paired_cosine_distances, paired_euclidean_distances, paired_manhattan_distances
+from scipy.stats import pearsonr, spearmanr
 
 
 logger = logging.getLogger(__name__)
@@ -97,6 +99,11 @@ class TranslationEvaluator(SentenceEvaluator):
 
         logger.info("Accuracy src2trg: {:.2f}".format(acc_src2trg*100))
         logger.info("Accuracy trg2src: {:.2f}".format(acc_trg2src*100))
+        
+        
+        logger.info('Evaluating translation similarity')
+        
+        
 
         if output_path is not None and self.write_csv:
             csv_path = os.path.join(output_path, self.csv_file)
