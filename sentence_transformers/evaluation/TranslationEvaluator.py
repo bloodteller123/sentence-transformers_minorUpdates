@@ -103,13 +103,28 @@ class TranslationEvaluator(SentenceEvaluator):
         
         logger.info('Evaluating translation similarity')
         
-        embeddings11 = torch.tensor(embeddings1, device='cpu')
-        embeddings22 = torch.tensor(embeddings2, device='cpu')
+
+
+
+#             ee = teacher_model.encode("The boy is raising his hand.", show_progress_bar=False, batch_size=16, convert_to_numpy=False)
+#             # ee1 = ee.detach().cpu().numpy()
+#             ee = 
+#             logger.info(ee)
+#             gg = teacher_model.encode("Der Mann hebt seine Hand.", show_progress_bar=False, batch_size=16, convert_to_numpy=False)
+#             # gg1 = gg.detach().cpu().numpy()
+#             from sklearn.metrics.pairwise import paired_cosine_distances, paired_euclidean_distances, paired_manhattan_distances
+#             gg = np.asarray([emb.detach().cpu().numpy() for emb in gg])
+
+#             cosine_scores = 1 - (paired_cosine_distances(ee.reshape(1, -1), gg.reshape(1, -1)))
+#             print(cosine_scores)
         
-        cosine_scores = 1 - (paired_cosine_distances(embeddings11, embeddings22))
-        manhattan_distances = -paired_manhattan_distances(embeddings11, embeddings22)
-        euclidean_distances = -paired_euclidean_distances(embeddings11, embeddings22)
-        dot_products = [np.dot(emb1, emb2) for emb1, emb2 in zip(embeddings11, embeddings22)]
+        embeddings1 = np.asarray([emb.detach().cpu().numpy() for emb in embeddings1]).reshape(1, -1)
+        embeddings2 = np.asarray([emb.detach().cpu().numpy() for emb in embeddings2]).reshape(1, -1)
+    
+        cosine_scores = 1 - (paired_cosine_distances(embeddings1, embeddings2))
+        manhattan_distances = -paired_manhattan_distances(embeddings1, embeddings2)
+        euclidean_distances = -paired_euclidean_distances(embeddings1, embeddings2)
+        dot_products = [np.dot(emb1, emb2) for emb1, emb2 in zip(embeddings1, embeddings2)]
         
         
         logger.info("Cosine-Similarity :{:.4f}".format(cosine_scores))
