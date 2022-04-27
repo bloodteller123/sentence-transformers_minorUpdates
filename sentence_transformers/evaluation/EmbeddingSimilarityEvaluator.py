@@ -98,19 +98,19 @@ class EmbeddingSimilarityEvaluator(SentenceEvaluator):
 
         logger.info("Cosine-Similarity :\tPearson: {:.4f}\tSpearman: {:.4f}".format(
             eval_pearson_cosine, eval_spearman_cosine))
-        print("Cosine-Similarity :" + str(cosine_scores))
+#         print("Cosine-Similarity :" + str(cosine_scores))
         
         logger.info("Manhattan-Distance:\tPearson: {:.4f}\tSpearman: {:.4f}".format(
             eval_pearson_manhattan, eval_spearman_manhattan))
-        print("Manhattan-Distance :" + str(manhattan_distances))
+#         print("Manhattan-Distance :" + str(manhattan_distances))
         
         logger.info("Euclidean-Distance:\tPearson: {:.4f}\tSpearman: {:.4f}".format(
             eval_pearson_euclidean, eval_spearman_euclidean))
-        print("Euclidean-Distance :" + str(euclidean_distances))
+#         print("Euclidean-Distance :" + str(euclidean_distances))
         
         logger.info("Dot-Product-Similarity:\tPearson: {:.4f}\tSpearman: {:.4f}".format(
             eval_pearson_dot, eval_spearman_dot))
-        print("Dot-Product-Similarity :" + str(dot_products))
+#         print("Dot-Product-Similarity :" + str(dot_products))
 
         if output_path is not None and self.write_csv:
             csv_path = os.path.join(output_path, self.csv_file)
