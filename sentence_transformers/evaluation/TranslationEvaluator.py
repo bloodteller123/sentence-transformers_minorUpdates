@@ -127,6 +127,10 @@ class TranslationEvaluator(SentenceEvaluator):
         dot_products = [np.dot(emb1, emb2) for emb1, emb2 in zip(embeddings1, embeddings2)]
         
         print("Cosine-Similarity :" + str(cosine_scores))
+        print("Manhattan-Distance :" + str(manhattan_distances))
+        print("Euclidean-Distance :" + str(euclidean_distances))
+        print("Dot-Product-Similarity :" + str(dot_products))
+
 #         logger.info("Cosine-Similarity :{:.4f}".format(cosine_scores))
 #         logger.info("Manhattan-Distance:{:.4f}".format(manhattan_distances))
 #         logger.info("Euclidean-Distance:{:.4f}".format(euclidean_distances))
