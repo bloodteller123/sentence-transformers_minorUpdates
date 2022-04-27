@@ -96,14 +96,14 @@ class EmbeddingSimilarityEvaluator(SentenceEvaluator):
         eval_pearson_dot, _ = pearsonr(labels, dot_products)
         eval_spearman_dot, _ = spearmanr(labels, dot_products)
 
-        logger.info("Cosine-Similarity :\tPearson: {:.4f}\tSpearman: {:.4f}".format(
-            eval_pearson_cosine, eval_spearman_cosine))
-        logger.info("Manhattan-Distance:\tPearson: {:.4f}\tSpearman: {:.4f}".format(
-            eval_pearson_manhattan, eval_spearman_manhattan))
-        logger.info("Euclidean-Distance:\tPearson: {:.4f}\tSpearman: {:.4f}".format(
-            eval_pearson_euclidean, eval_spearman_euclidean))
-        logger.info("Dot-Product-Similarity:\tPearson: {:.4f}\tSpearman: {:.4f}".format(
-            eval_pearson_dot, eval_spearman_dot))
+        logger.info("Cosine-Similarity :{:.4f} \tPearson: {:.4f}\tSpearman: {:.4f}".format(
+            cosine_scores,eval_pearson_cosine, eval_spearman_cosine))
+        logger.info("Manhattan-Distance: {:.4f}\tPearson: {:.4f}\tSpearman: {:.4f}".format(
+            manhattan_distances,eval_pearson_manhattan, eval_spearman_manhattan))
+        logger.info("Euclidean-Distance:{:.4f}\tPearson: {:.4f}\tSpearman: {:.4f}".format(
+            euclidean_distances,eval_pearson_euclidean, eval_spearman_euclidean))
+        logger.info("Dot-Product-Similarity:{:.4f}\tPearson: {:.4f}\tSpearman: {:.4f}".format(
+            dot_products,eval_pearson_dot, eval_spearman_dot))
 
         if output_path is not None and self.write_csv:
             csv_path = os.path.join(output_path, self.csv_file)
