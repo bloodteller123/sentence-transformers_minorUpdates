@@ -103,6 +103,9 @@ class TranslationEvaluator(SentenceEvaluator):
         
         logger.info('Evaluating translation similarity')
         
+        embeddings1 = embeddings1.cpu()
+        embeddings2 = embeddings2.cpu()
+        
         cosine_scores = 1 - (paired_cosine_distances(embeddings1, embeddings2))
         manhattan_distances = -paired_manhattan_distances(embeddings1, embeddings2)
         euclidean_distances = -paired_euclidean_distances(embeddings1, embeddings2)
